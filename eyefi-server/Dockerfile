@@ -12,8 +12,9 @@ RUN apt update \
 WORKDIR /root/eyefi-0.2
 
 RUN sed -i s/\"Twisted-Web\"\,\ \"Twisted-Core\"\,/\"twisted\"\,/ setup.py \
+	&& sed -i s/\"flickrapi\",// setup.py \
 	&& sed -i s/"from eyefi.twisted_flickrapi"/"#from eyefi.twisted_flickrapi"/ eyefi/actions.py \
-	&& sed -i s/"eyefi\/twisted_flickrapi.py"// eyefi.egg-info/SOURCES.txt \
+	&& sed -i s/\"Sphinx\",/\"sphinx==1.8.5\",/ setup.py \
 	&& python setup.py install
 
 CMD ["twistd", "-n", "eyefi"]
